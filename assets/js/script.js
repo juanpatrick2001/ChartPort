@@ -119,6 +119,24 @@ function typeChart(input) {
                 }
             });
             break;
+        default:
+            const ctxDef = document.getElementById('myChart');
+            const def = new Chart(ctxDef, {
+                type: 'line',
+                data: {
+                    labels: labelX,
+                    datasets: []
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            break;
+            break;
     }
 }
 
