@@ -41,23 +41,30 @@ function maxCount(data) {
 function typeChart(input) {
     const graph = document.getElementById('Graph');
     graph.innerHTML = `<canvas id="myChart" width="100" height="100"></canvas>`;
-    switch (input) {
-        case "1":
+    switch(input){
+        case "Byte":
             const ctx1 = document.getElementById('myChart');
-            const port1 = new Chart(ctx1, {
+            const ByteChart = new Chart(ctx1, {
                 type: 'line',
                 data: {
                     labels: labelX,
                     datasets: [{
-                            label: 'Byte',
+                            label: 'in_port1',
                             data: labelAY1,
+                            fill: false,
+                            borderColor: 'red',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'in_port2',
+                            data: labelBY1,
                             fill: false,
                             borderColor: 'green',
                             borderWidth: 1
                         },
                         {
-                            label: 'Packet',
-                            data: labelAY2,
+                            label: 'in_port3',
+                            data: labelCY1,
                             fill: false,
                             borderColor: 'blue',
                             borderWidth: 1
@@ -74,75 +81,34 @@ function typeChart(input) {
             });
 
             break;
-        case "2":
+        case "Packet":
             const ctx2 = document.getElementById('myChart');
-            const port2 = new Chart(ctx2, {
+            const PacketChart = new Chart(ctx2, {
                 type: 'line',
                 data: {
                     labels: labelX,
                     datasets: [{
-                            label: 'Byte',
-                            data: labelBY1,
+                            label: 'in_port1',
+                            data: labelAY2,
                             fill: false,
-                            borderColor: 'green',
+                            borderColor: 'red',
                             borderWidth: 1
                         },
                         {
-                            label: 'Packet',
+                            label: 'in_port2',
                             data: labelBY2,
                             fill: false,
-                            borderColor: 'blue',
-                            borderWidth: 1
-                        },
-                    ]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-            break;
-        case "3":
-            const ctx3 = document.getElementById('myChart');
-            const port3 = new Chart(ctx3, {
-                type: 'line',
-                data: {
-                    labels: labelX,
-                    datasets: [{
-                            label: 'Byte',
-                            data: labelCY1,
-                            fill: false,
                             borderColor: 'green',
                             borderWidth: 1
                         },
                         {
-                            label: 'Packet',
+                            label: 'in_port3',
                             data: labelCY2,
                             fill: false,
                             borderColor: 'blue',
                             borderWidth: 1
                         },
                     ]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-            break;
-        default:
-            const ctxDef = document.getElementById('myChart');
-            const def = new Chart(ctxDef, {
-                type: 'line',
-                data: {
-                    labels: labelX,
-                    datasets: []
                 },
                 options: {
                     scales: {
@@ -200,7 +166,7 @@ for (let i = 0; i < dataChart.length; i++) {
 
 
 $(document).ready(function () {
-    let value = "1";
+    let value = "Byte";
     const inputText = $(`#type_data`);
     inputText.on(`change`, function (e) {
         value = e.target.value;
