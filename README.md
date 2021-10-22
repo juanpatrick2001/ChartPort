@@ -6,7 +6,7 @@ Graph:
 * label y -> Byte/Packet
 
 ## Reference
-https://www.chartjs.org/docs/latest/getting-started/usage.html
-https://getbootstrap.com/
-https://jquery.com/
+* https://www.chartjs.org/docs/latest/getting-started/usage.html
+* https://getbootstrap.com/
+* https://jquery.com/
 
