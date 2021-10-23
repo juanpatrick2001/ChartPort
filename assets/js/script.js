@@ -136,7 +136,6 @@ function typeChart(input) {
                 }
             });
             break;
-            break;
     }
 }
 
