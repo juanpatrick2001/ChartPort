@@ -1,17 +1,3 @@
-//TODO: Nanti dimodif tergantung kebutuhan, karena jalanin local URL nya jadi belum bisa tes
-//function untuk fetch API data -> Belum digunakan, pengganti-nya dari responseallflowss1.js
-const fetchAllDataPort = async function () {
-    try {
-        const response = await fetch("http://192.168.1.106:8080/stats/flow/1");
-        const data = await response.json();
-        console.log(data);
-        return data;
-    } catch (err) {
-        console.error(err);
-    }
-};
-
-
 //menghitung jumlah/banyaknya data berdasarkan port dengan mengambil jumlah terbanyak
 function maxCount(data) {
     let inPort1 = 0;
@@ -41,7 +27,7 @@ function maxCount(data) {
 function typeChart(input) {
     const graph = document.getElementById('Graph');
     graph.innerHTML = `<canvas id="myChart" width="100" height="100"></canvas>`;
-    switch(input){
+    switch (input) {
         case "Byte":
             const ctx1 = document.getElementById('myChart');
             const ByteChart = new Chart(ctx1, {
@@ -141,49 +127,61 @@ function typeChart(input) {
 }
 
 
-//Mapping data
-const dataChart = data[1].map((obj) => ({
-    id: obj.match.in_port, //in_port
-    packet: obj.packet_count, //packet_count
-    byte: obj.byte_count //byte_count
-}));
 
-//label X
-let labelX = [];
-for (let i = 1; i < maxCount(dataChart); i++) {
-    labelX.push(i);
-}
 
-//label Y Byte
-let labelAY1 = [];
-let labelBY1 = [];
-let labelCY1 = [];
-for (let i = 0; i < dataChart.length; i++) {
-    if (dataChart[i].id === 1) {
-        labelAY1.push(dataChart[i].byte);
-    } else if (dataChart[i].id === 2) {
-        labelBY1.push(dataChart[i].byte);
-    } else if (dataChart[i].id === 3) {
-        labelCY1.push(dataChart[i].byte);
-    }
-}
 
-//label Y Packet Data
-let labelAY2 = [];
-let labelBY2 = [];
-let labelCY2 = [];
-for (let i = 0; i < dataChart.length; i++) {
-    if (dataChart[i].id === 1) {
-        labelAY2.push(dataChart[i].packet);
-    } else if (dataChart[i].id === 2) {
-        labelBY2.push(dataChart[i].packet);
-    } else if (dataChart[i].id === 3) {
-        labelCY2.push(dataChart[i].packet);
-    }
-}
+
 
 
 $(document).ready(function () {
+    const fetchAllDataPort = async function () {
+        try {
+            const response = await fetch("http://192.168.1.106:8080/stats/flow/1");
+            const data = await response.json();
+            //Mapping data
+            const dataChart = data[1].map((obj) => ({
+                id: obj.match.in_port, //in_port
+                packet: obj.packet_count, //packet_count
+                byte: obj.byte_count //byte_count
+            }));
+            //label X
+            let labelX = [];
+            for (let i = 1; i < maxCount(dataChart); i++) {
+                labelX.push(i);
+            }
+
+            //label Y Byte
+            let labelAY1 = [];
+            let labelBY1 = [];
+            let labelCY1 = [];
+            for (let i = 0; i < dataChart.length; i++) {
+                if (dataChart[i].id === 1) {
+                    labelAY1.push(dataChart[i].byte);
+                } else if (dataChart[i].id === 2) {
+                    labelBY1.push(dataChart[i].byte);
+                } else if (dataChart[i].id === 3) {
+                    labelCY1.push(dataChart[i].byte);
+                }
+            }
+
+            //label Y Packet Data
+            let labelAY2 = [];
+            let labelBY2 = [];
+            let labelCY2 = [];
+            for (let i = 0; i < dataChart.length; i++) {
+                if (dataChart[i].id === 1) {
+                    labelAY2.push(dataChart[i].packet);
+                } else if (dataChart[i].id === 2) {
+                    labelBY2.push(dataChart[i].packet);
+                } else if (dataChart[i].id === 3) {
+                    labelCY2.push(dataChart[i].packet);
+                }
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+    fetchAllDataPort();
     let value = "Byte";
     const inputText = $(`#type_data`);
     inputText.on(`change`, function (e) {
